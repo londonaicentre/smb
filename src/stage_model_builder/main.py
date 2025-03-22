@@ -93,9 +93,9 @@ def main() -> None:
     output_file_path: str = args.output
 
     s3_config = S3Config(
-        endpoint=args.s3_host,
-        key=args.s3_key,
-        secret=args.s3_secret,
+        endpoint=args.host,
+        key=args.key,
+        secret=args.secret,
     )
 
     column_names = get_column_names(source_file, s3_config)
