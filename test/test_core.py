@@ -1,7 +1,7 @@
 from stage_model_builder.main import (
     camel_to_snake,
     get_column_names,
-    get_column_aliases_sql,
+    generate_sql_column_aliases,
     get_stage_model_string,
 )
 
@@ -25,13 +25,12 @@ def test_get_column_aliases():
         "TestCol2",
     ]
 
-    processed_column_names = [camel_to_snake(col) for col in test_columns]
+    expected_output = [
+        "test_column_one",
+        "TestCol2 as test_col2",
+    ]
 
-    output = get_column_aliases_sql(test_columns)
-    test_obj = zip(test_columns, processed_column_names, output)
-
-    for raw, processed, as_statement in test_obj:
-        assert f"{raw} as {processed}" == as_statement
+    assert expected_output == generate_sql_column_aliases(test_columns)
 
 
 def test_build_stage_model():

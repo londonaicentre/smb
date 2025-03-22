@@ -58,8 +58,25 @@ def get_column_names(
     return obj.schema.names
 
 
-def get_column_aliases_sql(column_names: list[str]) -> list[str]:
-    return [f"{col} as {camel_to_snake(col)}" for col in column_names]
+def generate_sql_column_aliases(column_names: list[str]) -> list[str]:
+    """
+    Generate SQL column aliases for a list of column names.
+
+    If a column name is in camelCase, it will be converted to snake_case and an alias
+    will be created in the format "originalName as snake_case_name".
+
+    If the column name is already in snake_case, it will be returned as is.
+
+    Args:
+        column_names: A list of column names.
+    Returns:
+        A list of SQL selectors with alises where required
+    """
+
+    return [
+        f"{col} as {camel_to_snake(col)}" if camel_to_snake(col) != col else col
+        for col in column_names
+    ]
 
 
 def get_stage_model_string(as_statements: list[str]) -> str:
@@ -99,7 +116,7 @@ def main() -> None:
     )
 
     column_names = get_column_names(source_file, s3_config)
-    aliases = get_column_aliases_sql(column_names)
+    aliases = generate_sql_column_aliases(column_names)
     stage_model_str = get_stage_model_string(aliases)
 
     with open(output_file_path, "w") as out_file:
