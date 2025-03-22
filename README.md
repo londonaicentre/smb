@@ -8,4 +8,8 @@ This package detects the names of columns in a parquet file and standardises the
 
 ## Installing
 
-`uv pip install git+https://github.com/londonaicentre/smb.git
+`uv pip install git+https://github.com/londonaicentre/smb.git`
+
+## Using
+
+`smb -h`
