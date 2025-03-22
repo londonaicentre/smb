@@ -5,7 +5,7 @@ from typing import Optional
 
 import pyarrow.parquet as pq
 import s3fs
-from sqlfmt.api import format_string
+from sqlfmt.api import Mode, format_string
 
 
 @dataclass
@@ -121,5 +121,5 @@ def main() -> None:
     stage_model_sql_string = get_stage_model_string(aliases)
 
     with open(output_file_path, "w") as out_file:
-        formatted_string = format_string(stage_model_sql_string)
+        formatted_string = format_string(stage_model_sql_string, Mode(line_length=100))
         out_file.write(formatted_string)
