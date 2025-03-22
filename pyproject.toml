@@ -4,7 +4,11 @@ version = "0.1.0"
 description = "A package to aid building stage models quickly for use in the London AI Centre"
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = ["pyarrow>=19.0.1", "s3fs>=0.4.2"]
+dependencies = [
+    "pyarrow>=19.0.1",
+    "s3fs>=0.4.2",
+    "shandy-sqlfmt[jinjafmt]>=0.26.0",
+]
 
 [project.scripts]
 smb = "stage_model_builder:main.main"

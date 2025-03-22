@@ -5,6 +5,7 @@ from typing import Optional
 
 import pyarrow.parquet as pq
 import s3fs
+from sqlfmt.api import format_string
 
 
 @dataclass
@@ -117,7 +118,8 @@ def main() -> None:
 
     column_names = get_column_names(source_file, s3_config)
     aliases = generate_sql_column_aliases(column_names)
-    stage_model_str = get_stage_model_string(aliases)
+    stage_model_sql_string = get_stage_model_string(aliases)
 
     with open(output_file_path, "w") as out_file:
-        out_file.write(stage_model_str)
+        formatted_string = format_string(stage_model_sql_string)
+        out_file.write(formatted_string)
