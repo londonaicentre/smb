@@ -1,7 +1,7 @@
 [project]
 name = "stage-model-builder"
 version = "0.1.0"
-description = "Add your description here"
+description = "A package to aid building stage models quickly for use in the London AI Centre"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = ["pyarrow>=19.0.1", "s3fs>=0.4.2"]
